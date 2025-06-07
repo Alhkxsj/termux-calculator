@@ -1,40 +1,38 @@
+#!/usr/bin/env python3
+import time, os, sys
 
-import time
-import os
-
-def 打印动画(text, delay=0.04):
+def slow_print(text, delay=0.04):
     for c in text:
         print(c, end='', flush=True)
         time.sleep(delay)
     print()
 
-def 显示彩蛋():
-    os.system("clear")
-    print("\033[1;35m💖 特别的彩蛋 💖\033[0m\n")
-    打印动画("这是一个特别的数字背后隐藏的心意。", 0.05)
-    打印动画("愿你每天都拥有快乐与美好。", 0.05)
-    input("\n按回车返回计算器...")
+def show_egg():
+    os.system('clear')
+    print("\033[1;35m🌸 少女彩蛋🌸\033[0m\n")
+    slow_print("520，是你我的小心动。",0.06)
+    slow_print("愿你每天都像被花瓣轻吻。",0.06)
+    slow_print("你的笑容，是我计算里最美的结果。",0.06)
+    slow_print("—— 来自用心的人",0.06)
+    input("\n按回车继续")
 
-def 主函数():
-    os.system("clear")
-    print("\033[1;36m欢迎使用计算机（终端版）\033[0m")
-    print("输入数学表达式，输入 q 退出\n")
-
+def main():
+    os.system('clear')
+    print("\033[95m欢迎使用 少女风计算机（终端版）\033[0m")
+    print("输入表达式（例：1+1），输入 q 退出\n")
     while True:
-        表达式 = input("表达式 > ").strip()
-        if 表达式.lower() in ['q', 'quit', 'exit']:
-            print("\n再见，祝你好运！")
+        expr = input("表达式 > ").strip()
+        if expr.lower() in ['q','exit']:
+            print("\n再见~ 愿你每天都灿烂🌸")
             break
-        if 表达式 == "520":
-            显示彩蛋()
-            continue
+        if expr == "520":
+            show_egg(); continue
         try:
-            结果 = eval(表达式, {"__builtins__": {}}, {})
-            print(f"结果 = {结果}")
-            if 结果 == 520:
-                显示彩蛋()
-        except Exception:
-            print("错误：无效表达式")
+            result = eval(expr, {"__builtins__":None}, {})
+            print(f"\033[96m结果 = {result}\033[0m")
+            if result == 520: show_egg()
+        except:
+            print("\033[91m错误：无效表达式\033[0m")
 
-if __name__ == "__main__":
-    主函数()
+if __name__=="__main__":
+    main()
