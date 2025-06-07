@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-echo -e "\e[1;35m🌸 欢迎使用少女计算器安装器 ～ By 刘婧仪男友专属版🌸\e[0m\n"
+echo -e "\e[1;35m🌸 欢迎使用少女计算器安装器 ～ By 刘婧仪专属版🌸\e[0m\n"
 
 # 设置安装路径
 INSTALL_DIR="$HOME/python"
