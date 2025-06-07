@@ -6,32 +6,33 @@
 远程版本链接="https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
 
 clear
-echo -e "\e[1;35m╭──────────────────────────────────────╮"
-echo -e "│ 🌸 欢迎使用 少女计算器 启动器 🌸 │"
-echo -e "╰──────────────────────────────────────╯\e[0m"
+echo -e "\e[1;35m╭────────────────────────────────────╮"
+echo -e "│       🌸 欢迎使用 少女计算器 启动器 🌸      │"
+echo -e "╰────────────────────────────────────╯\e[0m"
 
 # 🔍 自动检测更新
 最新版本=$(curl -fsSL "$远程版本链接" 2>/dev/null)
+
 if [ -n "$最新版本" ] && [ "$最新版本" != "$版本号" ]; then
-    echo -e "\e[1;33m🆕 发现新版本：$最新版本（当前版本：$版本号）\e[0m"
-    echo -e "\e[1;32m🌸 请更新以获取最新功能～ 输入：少女计算器 --更新\e[0m\n"
+    echo -e "\n\e[1;33m🆕 发现新版本：$最新版本（当前版本：$版本号）\e[0m"
+    echo -e "\e[1;36m🌸 输入：少女计算器 --更新 来升级最新版~\e[0m\n"
 fi
 
-# 作者信息 + 主菜单
-echo -e "\e[1;36m📌 版本：$版本号   🗓 更新：$更新日期   👩‍💻 作者：$作者\e[0m"
-echo
+# 显示信息
+echo -e "\e[1;36m📌 当前版本：$版本号   📅 更新：$更新日期   👩‍💻 作者：$作者\e[0m\n"
 
-# 处理手动更新命令
+# 处理更新指令
 if [[ "$1" == "--更新" ]]; then
-    echo -e "\n🚀 正在更新少女计算器..."
+    echo -e "\n🚀 正在为你升级少女计算器...\n"
     bash <(curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/安装脚本.sh)
     exit 0
 fi
 
-echo -e "\e[1;33m请选择启动模式：\e[0m"
-echo -e " 1. 终端版计算器"
-echo -e " 2. 图形版计算器 (请先打开 Termux X11)"
-echo -e " 0. 退出"
+# 主菜单
+echo -e "\e[1;35m🔸 请选择启动模式：\e[0m"
+echo -e " 1. ✨ 终端版计算器"
+echo -e " 2. 🖼 图形版计算器 (请先打开 Termux X11)"
+echo -e " 0. ❌ 退出"
 echo
 
 read -p "输入数字选择操作：" choice
@@ -46,9 +47,9 @@ case "$choice" in
         python3 ~/python/计算机图形版.py
         ;;
     0)
-        echo -e "\n\e[1;32m已退出。记得和刘婧仪一起甜甜地数星星 ✨～\e[0m"
+        echo -e "\n\e[1;32m已退出，祝你与刘婧仪一起拥有少女般的浪漫生活～✨\e[0m"
         ;;
     *)
-        echo -e "\e[1;31m无效选项，请重新运行少女计算器。\e[0m"
+        echo -e "\e[1;31m无效选项，请重新输入。\e[0m"
         ;;
 esac
