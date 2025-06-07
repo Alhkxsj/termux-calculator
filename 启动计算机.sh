@@ -1,55 +1,88 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-版本号="v1.0"
-更新日期="2025-06-07"
-作者="快手：啊泠好困想睡觉"
-远程版本链接="https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
+版本号="1.1.0"
+远程版本地址="https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
+更新脚本地址="https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/安装脚本.sh"
+
+# 彩色定义
+粉红="\033[1;35m"
+紫="\033[1;34m"
+绿="\033[1;32m"
+黄="\033[1;33m"
+重置="\033[0m"
 
 clear
-echo -e "\e[1;35m╭────────────────────────────────────╮"
-echo -e "│       🌸 欢迎使用 少女计算器 启动器 🌸      │"
-echo -e "╰────────────────────────────────────╯\e[0m"
-
-# 🔍 自动检测更新
-最新版本=$(curl -fsSL "$远程版本链接" 2>/dev/null)
-
-if [ -n "$最新版本" ] && [ "$最新版本" != "$版本号" ]; then
-    echo -e "\n\e[1;33m🆕 发现新版本：$最新版本（当前版本：$版本号）\e[0m"
-    echo -e "\e[1;36m🌸 输入：少女计算器 --更新 来升级最新版~\e[0m\n"
-fi
-
-# 显示信息
-echo -e "\e[1;36m📌 当前版本：$版本号   📅 更新：$更新日期   👩‍💻 作者：$作者\e[0m\n"
-
-# 处理更新指令
-if [[ "$1" == "--更新" ]]; then
-    echo -e "\n🚀 正在为你升级少女计算器...\n"
-    bash <(curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/安装脚本.sh)
-    exit 0
-fi
-
-# 主菜单
-echo -e "\e[1;35m🔸 请选择启动模式：\e[0m"
-echo -e " 1. ✨ 终端版计算器"
-echo -e " 2. 🖼 图形版计算器 (请先打开 Termux X11)"
-echo -e " 0. ❌ 退出"
+echo -e "${粉红}💖 欢迎使用少女计算器 ～ 启动中 💖${重置}"
 echo
 
-read -p "输入数字选择操作：" choice
+# 自动检测版本
+echo -e "${紫}🔍 正在检查更新中...${重置}"
+最新版本=$(curl -fsSL "$远程版本地址" | tr -d '\r')
 
-case "$choice" in
-    1)
-        clear
-        python3 ~/python/计算机.py
-        ;;
-    2)
-        clear
-        python3 ~/python/计算机图形版.py
-        ;;
-    0)
-        echo -e "\n\e[1;32m已退出，祝你与刘婧仪一起拥有少女般的浪漫生活～✨\e[0m"
-        ;;
-    *)
-        echo -e "\e[1;31m无效选项，请重新输入。\e[0m"
-        ;;
-esac
+if [ "$最新版本" != "$版本号" ]; then
+    echo -e "${黄}🌸 检测到新版本：v$最新版本（当前版本：v$版本号）${重置}"
+    echo -ne "${绿}是否立即升级？(y/n)：${重置}"
+    read -r 是否升级
+    if [[ "$是否升级" == "y" || "$是否升级" == "Y" ]]; then
+        echo -e "${紫}✨ 正在下载最新版少女计算器...${重置}"
+        bash <(curl -fsSL "$更新脚本地址")
+        exit
+    fi
+else
+    echo -e "${绿}✅ 已是最新版本！少女计算器 v$版本号${重置}"
+fi
+
+# 菜单显示
+while true; do
+    clear
+    echo -e "${粉红}╭────────────────────────────╮${重置}"
+    echo -e "${粉红}│       🌸 少女计算器启动菜单 🌸       │${重置}"
+    echo -e "${粉红}╰────────────────────────────╯${重置}"
+    echo
+    echo -e "${绿}当前版本：v$版本号   📅 更新日期：自动检测${重置}"
+    echo -e "${黄}👩‍💻 作者：@泠好困想睡觉（快手）${重置}"
+    echo
+    echo -e "${紫}请选择启动方式：${重置}"
+    echo -e "${黄}1.${重置} 💻 启动终端计算器"
+    echo -e "${黄}2.${重置} 🖼 启动图形计算器（请先打开 Termux X11）"
+    echo -e "${黄}3.${重置} 🔄 手动检查更新"
+    echo -e "${黄}4.${重置} ❌ 退出少女计算器"
+    echo
+    echo -ne "${粉红}输入选项编号（1-4）：${重置}"
+    read -r 选项
+
+    case $选项 in
+        1)
+            clear
+            python ~/python/计算机.py
+            ;;
+        2)
+            clear
+            python ~/python/计算机图形版.py
+            ;;
+        3)
+            echo -e "${紫}🌸 手动检查更新中...${重置}"
+            最新版本=$(curl -fsSL "$远程版本地址" | tr -d '\r')
+            if [ "$最新版本" != "$版本号" ]; then
+                echo -e "${黄}发现新版本 v$最新版本，当前版本 v$版本号${重置}"
+                echo -ne "${绿}是否立即升级？(y/n)：${重置}"
+                read -r 是否升级
+                if [[ "$是否升级" == "y" || "$是否升级" == "Y" ]]; then
+                    bash <(curl -fsSL "$更新脚本地址")
+                    exit
+                fi
+            else
+                echo -e "${绿}你已经是最新版啦～ v$版本号${重置}"
+                sleep 2
+            fi
+            ;;
+        4)
+            echo -e "${粉红}🌸 再见喵～ 有缘再见少女计算器 💕${重置}"
+            exit
+            ;;
+        *)
+            echo -e "${黄}无效的输入，请重新选择～${重置}"
+            sleep 1.5
+            ;;
+    esac
+done
