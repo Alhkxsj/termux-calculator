@@ -15,12 +15,12 @@
     最新版本=$(curl -fsSL "$远程版本地址" 2>/dev/null)
 
     if [ "$当前版本" != "$最新版本" ] && [ -n "$最新版本" ]; then
-        echo -e "${粉红}╭────────────────────────────────────╮"
+        echo -e "$粉红╭────────────────────────────────────╮"
         echo -e "│        🌸 少女计算器启动菜单 🌸     │"
         echo -e "╰────────────────────────────────────╯"
         echo -e "作者：快手：泠好困想睡觉"
         echo -e "当前版本：$当前版本"
-        echo -e "检测到新版本：${最新版本}，是否升级？（y/n）${重置}"
+        echo -e "检测到新版本：$最新版本，是否升级？（y/n）$重置"
         read -p "➤ 请输入选择：" 是否升级
         if [ "$是否升级" = "y" ]; then
             升级程序
@@ -29,27 +29,27 @@
 }
 
 升级程序() {
-    echo -e "\n${粉红}正在升级少女计算器，请稍候...${重置}"
+    echo -e "\n$粉红正在升级少女计算器，请稍候...$重置"
     cd $HOME/python
     curl -fsSLO https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py
     curl -fsSLO https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机图形版.py
     curl -fsSLO https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt
-    echo -e "${粉红}升级完成！请重新启动程序。${重置}"
+    echo -e "$粉红升级完成！请重新启动程序。$重置"
     exit
 }
 
 主菜单() {
     clear
-    echo -e "${粉红}╭────────────────────────────────────╮"
+    echo -e "$粉红╭────────────────────────────────────╮"
     echo -e "│        🌸 少女计算器启动菜单 🌸     │"
     echo -e "╰────────────────────────────────────╯"
     echo -e "作者：快手：泠好困想睡觉"
-    echo -e "${重置}"
+    echo -e "$重置"
     echo "1. 启动终端版"
     echo "2. 启动图形版 (请提前打开 Termux-X11)"
     echo "3. 检查更新"
     echo "4. 退出"
-    echo -e "${粉红}════════════════════════════════════${重置}"
+    echo -e "$粉红════════════════════════════════════$重置"
     read -p "请输入选项：" 选项
 
     case "$选项" in
