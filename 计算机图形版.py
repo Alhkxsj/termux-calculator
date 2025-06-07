@@ -1,90 +1,85 @@
-#!/usr/bin/env python3
-import tkinter as tk, threading, time, math
+import tkinter as tk
+from tkinter import messagebox
 
-class SkinCalculator:
-    def __init__(self, root):
-        self.root = root
-        self.skin = 'pink'
-        self.skins = {
-            'pink': {'bg':'#fff0f5','fg':'#c2185b','btn_bg':'#fddde6','btn_hover':'#f8bbd0'},
-            'mint': {'bg':'#f0fff4','fg':'#00796b','btn_bg':'#c8e6c9','btn_hover':'#a5d6a7'}
-        }
-        root.title("少女风计算机（图形版）")
-        root.geometry("400x550")
-        self.create_widgets()
-        self.apply_skin()
+# 彩蛋函数
+def 显示彩蛋():
+    messagebox.showinfo("💗 彩蛋时间！", "刘婧仪是我最爱的女孩！\n她是我的唯一~\n我会永远陪伴她 🌸")
 
-    def apply_skin(self):
-        s = self.skins[self.skin]
-        self.root.config(bg=s['bg'])
-        self.title.config(bg=s['bg'], fg=s['fg'])
-        self.entry.config(bg='white', fg='black')
-        self.footer.config(bg=s['bg'], fg=s['fg'])
-        for btn in self.buttons:
-            btn.config(bg=s['btn_bg'], fg=s['fg'],
-                       activebackground=s['btn_hover'])
-        self.skin_button.config(bg=s['btn_bg'], fg=s['fg'], activebackground=s['btn_hover'])
+# 计算函数
+def 点击等于():
+    try:
+        表达式 = 输入框.get()
+        if 表达式.strip() == "520":
+            显示彩蛋()
+        else:
+            结果 = eval(表达式)
+            if 结果 == 520:
+                显示彩蛋()
+            else:
+                输入框.delete(0, tk.END)
+                输入框.insert(0, str(结果))
+    except:
+        输入框.delete(0, tk.END)
+        输入框.insert(0, "错误")
 
-    def toggle_skin(self):
-        self.skin = 'mint' if self.skin=='pink' else 'pink'
-        self.apply_skin()
+# 插入函数
+def 插入字符(char):
+    输入框.insert(tk.END, char)
 
-    def show_egg(self):
-        w = tk.Toplevel(self.root)
-        w.title("彩蛋")
-        w.geometry("380x220")
-        s = self.skins[self.skin]
-        w.config(bg=s['bg'])
-        txt = tk.Text(w,bg=s['bg'],fg=s['fg'],bd=0,wrap="word",font=("Arial",14))
-        txt.pack(expand=True, fill="both", padx=10, pady=10)
-        msg = "🌸 少女彩蛋 🌸\n\n520，是你我的小心动。\n愿你每天都像被花瓣轻吻。\n—— 来自用心的人"
-        def writer():
-            for c in msg:
-                txt.insert("end",c); txt.update(); time.sleep(0.04)
-            txt.config(state="disabled")
-        threading.Thread(target=writer).start()
+# 清除函数
+def 清除输入():
+    输入框.delete(0, tk.END)
 
-    def calculate(self, v):
-        if v=="C":
-            self.entry.delete(0,'end'); self.result_label.config(text="")
-            return
-        if v=="=":
-            expr = self.entry.get()
-            if expr=="520": self.show_egg(); return
-            try:
-                res = eval(expr,{"__builtins__":None},{"sqrt":math.sqrt})
-                self.result_label.config(text=f"结果 = {round(res,6)}")
-                if res==520: self.show_egg()
-            except:
-                self.result_label.config(text="错误")
+# 创建窗口
+窗口 = tk.Tk()
+窗口.title("少女计算器 🌸")
+窗口.geometry("360x500")
+窗口.configure(bg="#ffe6f0")  # 粉色背景
 
-            self.entry.delete(0,'end')
-            return
-        self.entry.insert('end',v)
+# 输入框
+输入框 = tk.Entry(窗口, font=("Arial", 24), bd=8, relief=tk.FLAT, justify="right", bg="#fff0f5", fg="#ff69b4")
+输入框.pack(fill=tk.BOTH, padx=10, pady=10, ipady=10)
 
-    def create_widgets(self):
-        self.title = tk.Label(self.root,text="少女风计算机",font=("Helvetica",24,"bold"))
-        self.title.pack(pady=12)
-        self.entry = tk.Entry(self.root,font=("Consolas",20),justify="right")
-        self.entry.pack(fill="x",padx=10,pady=5,ipady=6)
-        frame = tk.Frame(self.root)
-        frame.pack(pady=8)
-        self.buttons=[]
-        for row in [["7","8","9","/"],["4","5","6","*"],["1","2","3","-"],["C","0",".","="]]:
-            rowf=tk.Frame(frame); rowf.pack(expand=True,fill="both", pady=3)
-            for ch in row:
-                b=tk.Button(rowf,text=ch,font=("Helvetica",16,"bold"), command=lambda x=ch: self.calculate(x))
-                b.pack(side="left",expand=True,fill="both", padx=4)
-                self.buttons.append(b)
-        self.result_label = tk.Label(self.root,text="",font=("Consolas",18))
-        self.result_label.pack(pady=5)
-        self.footer = tk.Label(self.root,text="少女皮肤：粉色 ↔ 薄荷", font=("Arial",12))
-        self.footer.pack(pady=5)
-        self.skin_button = tk.Button(self.root,text="切换皮肤",command=self.toggle_skin)
-        self.skin_button.pack(pady=3)
-        self.buttons.append(self.skin_button)
+# 按钮列表
+按钮样式 = {
+    "font": ("Arial", 18),
+    "width": 5,
+    "height": 2,
+    "bg": "#ffc0cb",
+    "fg": "#ffffff",
+    "bd": 0,
+    "activebackground": "#ffb6c1"
+}
 
-if __name__=="__main__":
-    root=tk.Tk()
-    app=SkinCalculator(root)
-    root.mainloop()
+按钮列表 = [
+    ['7', '8', '9', '+'],
+    ['4', '5', '6', '-'],
+    ['1', '2', '3', '*'],
+    ['0', '.', '=', '/'],
+]
+
+# 创建按钮
+按钮框架 = tk.Frame(窗口, bg="#ffe6f0")
+按钮框架.pack()
+
+for 行 in 按钮列表:
+    行框 = tk.Frame(按钮框架, bg="#ffe6f0")
+    行框.pack(pady=5)
+    for 按钮 in 行:
+        if 按钮 == '=':
+            b = tk.Button(行框, text=按钮, command=点击等于, **按钮样式)
+        else:
+            b = tk.Button(行框, text=按钮, command=lambda char=按钮: 插入字符(char), **按钮样式)
+        b.pack(side=tk.LEFT, padx=5)
+
+# 最后一行：清空和退出
+底部行 = tk.Frame(窗口, bg="#ffe6f0")
+底部行.pack(pady=15)
+
+清除 = tk.Button(底部行, text="清空", command=清除输入, **按钮样式)
+清除.pack(side=tk.LEFT, padx=10)
+
+退出 = tk.Button(底部行, text="退出", command=窗口.destroy, **按钮样式)
+退出.pack(side=tk.RIGHT, padx=10)
+
+窗口.mainloop()
