@@ -1,8 +1,6 @@
-#!/data/data/com.termux/files/usr/bin/bash
-
 # 少女计算器启动脚本
 # 作者：快手啊泠好困想睡觉
-# 版本：1.0
+# 版本：1.1 (Termux优化版)
 
 CONFIG_FILE="$HOME/.少女计算器配置"
 SKIN_NAME="pink"
@@ -14,12 +12,13 @@ RESET="\033[0m"
 BOLD="\033[1m"
 TERM_WIDTH=60
 
-HEART="❤"
-FLOWER="❀"
-STAR="★"
-SPARKLE="✨"
-RIBBON="🎀"
-BUNNY="(｡･ω･｡)"
+# 使用兼容性符号
+HEART="<3"
+FLOWER="*"
+STAR="+"
+SPARKLE="."
+RIBBON="~"
+BUNNY="(^_^)"
 
 EGGS=(
 "今天也要像花一样可爱地盛开~"
@@ -49,7 +48,7 @@ load_skin() {
         dark)
             COLORS[PINK]="\033[38;5;60m"
             COLORS[SOFT_PINK]="\033[38;5;105m"
-            COLORS[BLUE]="\033[38;5:111m"
+            COLORS[BLUE]="\033[38;5;111m"
             COLORS[PURPLE]="\033[38;5;99m"
             COLORS[YELLOW]="\033[38;5;220m"
         ;;
@@ -87,19 +86,17 @@ show_easter_egg() {
 startup_animation() {
     clear_screen
     local msg="${COLORS[PINK]}${BOLD}少女计算器启动中，请稍候...${RESET}"
-    echo
     center "$msg"
-    echo
     sleep 1
 }
 
 print_logo() {
     clear_screen
-    echo -e "${COLORS[SOFT_PINK]}${BOLD}╔══════════════════════════════════════════╗${RESET}"
-    echo -e "${COLORS[SOFT_PINK]}║                                          ║${RESET}"
-    echo -e "${COLORS[PINK]}║        少女计算器 - 梦幻启动菜单         ║${RESET}"
-    echo -e "${COLORS[SOFT_PINK]}║                                          ║${RESET}"
-    echo -e "${COLORS[SOFT_PINK]}╚══════════════════════════════════════════╝${RESET}"
+    echo -e "${COLORS[SOFT_PINK]}${BOLD}============================================${RESET}"
+    echo -e "${COLORS[SOFT_PINK]}${BOLD}                                          ${RESET}"
+    echo -e "${COLORS[PINK]}${BOLD}        少女计算器 - 梦幻启动菜单         ${RESET}"
+    echo -e "${COLORS[SOFT_PINK]}${BOLD}                                          ${RESET}"
+    echo -e "${COLORS[SOFT_PINK]}${BOLD}============================================${RESET}"
     echo
     center "${COLORS[BLUE]}作者：快手啊泠好困想睡觉${RESET}"
     echo
@@ -111,10 +108,9 @@ main_menu() {
         echo -e " ${COLORS[PINK]}1.${RESET} 启动终端版 ${HEART}"
         echo -e " ${COLORS[BLUE]}2.${RESET} 检查更新 ${STAR}"
         echo -e " ${COLORS[PURPLE]}3.${RESET} 切换皮肤 ${RIBBON}"
-        echo -e " ${COLORS[CYAN]}4.${RESET} 卸载程序 ${FLOWER}"
-        echo -e " ${COLORS[RED]}5.${RESET} 退出少女计算器 ${BUNNY}"
+        echo -e " ${COLORS[RED]}4.${RESET} 退出少女计算器 ${BUNNY}"
         echo
-        echo -ne "${COLORS[PINK]}请选择功能编号（1-5）：${RESET}"
+        echo -ne "${COLORS[PINK]}请选择功能编号（1-4）：${RESET}"
         read opt
         case "$opt" in
             1)
@@ -129,19 +125,11 @@ main_menu() {
                 change_skin
                 ;;
             4)
-                echo -e "${COLORS[PURPLE]}开始卸载少女计算器...${RESET}"
-                rm -rf "$HOME/计算机.py"
-                sed -i '/少女计算器/d' "$HOME/.bashrc"
-                rm -f "$CONFIG_FILE" "$LOCAL_VERSION_FILE"
-                echo -e "${COLORS[FLOWER]}卸载完成，再见喵~${RESET}"
-                exit
-                ;;
-            5)
                 echo -e "${COLORS[RED]}再见喵，欢迎下次光临！${RESET}"
                 exit
                 ;;
             *)
-                echo -e "${COLORS[RED]}无效输入，请输入 1-5 之间的数字${RESET}"
+                echo -e "${COLORS[RED]}无效输入，请输入 1-4 之间的数字${RESET}"
                 sleep 1
                 ;;
         esac
@@ -164,7 +152,7 @@ upgrade() {
         if [[ "$confirm" == "y" ]]; then
             echo -e "${COLORS[CYAN]}正在下载最新版本...${RESET}"
             cd $HOME
-            curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/启动计算机.Sh"
+            curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/启动计算机.sh"
             curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py"
             curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
             echo -e "${COLORS[SOFT_PINK]}更新完成，请重新运行少女计算器~${RESET}"
