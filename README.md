@@ -10,8 +10,6 @@
 
 支持终端文本版计算器（适配 Termux）
 
-支持图形版少女风界面（需 termux-x11 支持）
-
 启动时自动检测更新
 
 中文菜单提示，少女风界面设计
@@ -44,8 +42,6 @@ bash <(curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/ma
 
 启动终端版
 
-启动图形版（需开启 termux-x11）
-
 检查更新
 
 卸载少女计算器
@@ -61,8 +57,6 @@ bash <(curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/ma
 ~/.bashrc 中的别名命令
 
 ❓常见问题
-
-图形版无法运行？请确认你已经启动了 termux-x11。
 
 启动时没反应？可尝试手动运行：
 
