@@ -97,7 +97,7 @@ print_logo() {
     echo -e "${COLORS[PINK]}${BOLD}        少女计算器 - 梦幻启动菜单         ${RESET}"
     echo -e "${COLORS[SOFT_PINK]}${BOLD}                                          ${RESET}"
     echo -e "${COLORS[SOFT_PINK]}${BOLD}============================================${RESET}"
-    echo -e "${COLORS[BLUE]}作者：快手啊泠好困想睡觉${RESET}"
+    echo -e "${COLORS[BLUE]}作者：快手:啊泠好困想睡觉${RESET}"
     echo
 }
 
