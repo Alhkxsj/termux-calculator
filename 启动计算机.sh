@@ -1,10 +1,38 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# 梦幻少女配色
-PINK='\033[38;5;213m'
-SOFT_PINK='\033[38;5;218m'
-PASTEL_BLUE='\033[38;5;153m'
-PASTEL_PURPLE='\033[38;5;183m'
+# 配置文件保存皮肤
+CONFIG_FILE="$HOME/.少女计算器配置"
+
+# 默认皮肤名
+SKIN_NAME="pink"
+
+# 加载皮肤
+load_skin() {
+    if [[ -f "$CONFIG_FILE" ]]; then
+        SKIN_NAME=$(cat "$CONFIG_FILE")
+    fi
+
+    case "$SKIN_NAME" in
+        "pink")
+            PINK='\033[38;5;213m'
+            SOFT_PINK='\033[38;5;218m'
+            PASTEL_BLUE='\033[38;5;153m'
+            PASTEL_PURPLE='\033[38;5;183m'
+            ;;
+        "dark")
+            PINK='\033[38;5;60m'
+            SOFT_PINK='\033[38;5;105m'
+            PASTEL_BLUE='\033[38;5;111m'
+            PASTEL_PURPLE='\033[38;5;99m'
+            ;;
+        *)
+            echo "未知皮肤，使用默认粉色系"
+            SKIN_NAME="pink"
+            ;;
+    esac
+}
+
+# 基础色不变
 YELLOW='\033[38;5;229m'
 WHITE='\033[1;37m'
 BOLD='\033[1m'
@@ -25,6 +53,22 @@ BUBBLE="◦"
 WING="꒰ঌ"
 BUTTERFLY="𓆩✿𓆪"
 
+# 彩蛋少女语录
+EGGS=(
+    "🌸 今天也要像花一样可爱地盛开~"
+    "✨ 计算一下今天的心动指数是多少~"
+    "🎀 用智慧点亮粉色的梦想世界~"
+    "ฅ•ω•ฅ 喵～欢迎回来小可爱~"
+    "❄ 少女的魔法，是不容低估的哦~"
+)
+
+# 彩蛋显示
+show_easter_egg() {
+    local egg=${EGGS[$RANDOM % ${#EGGS[@]}]}
+    center "${PASTEL_PURPLE}${BOLD}${SPARKLE} ${egg} ${SPARKLE}${RESET}"
+    sleep 1.3
+}
+
 # 居中输出函数
 center() {
   local s="$1"
@@ -34,7 +78,22 @@ center() {
   printf "%*s%s%*s\n" $p "" "$s" $p ""
 }
 
-# 梦幻渐变少女LOGO动效
+# 启动动画
+startup_animation() {
+    clear
+    for frame in 1 2 3 4 5; do
+        echo -ne "${PINK}${BOLD}少女计算器正在启动"
+        for ((i = 0; i < frame; i++)); do
+            echo -n "${SPARKLE}"
+        done
+        echo -ne "${RESET}\r"
+        sleep 0.25
+    done
+    echo ""
+    sleep 0.4
+}
+
+# 梦幻 LOGO 动效
 logo_lines=(
 "${SOFT_PINK}${BOLD}╭────────────────────────────────────────────────────╮${RESET}"
 "${SOFT_PINK}${BOLD}│                                                    │${RESET}"
@@ -56,27 +115,27 @@ logo_rainbow() {
         esac
         sleep 0.05
     done
-
-    # 美化版作者信息输出 ✨🌸
     center "${PASTEL_PURPLE}${BOLD}${BUTTERFLY}${SPARKLE}${BUNNY}${SPARKLE}${FLOWER}${RIBBON}${YELLOW} 作者：快手：啊泠好困想睡觉 ${RIBBON}${FLOWER}${SPARKLE}${BUNNY}${SPARKLE}${BUTTERFLY}${RESET}"
     echo -e "${SOFT_PINK}${BOLD}─────────────────────────────────────────────────────${RESET}\n"
+    show_easter_egg
 }
 
-# 少女菜单
+# 主菜单
 main_menu() {
     while true; do
         logo_rainbow
-        # 菜单体，超少女符号点缀
-        echo -e "${PASTEL_PURPLE}${BOLD}     1.${RESET} ${PINK}启动终端版${RESET}     ${HEART}${STAR}   ${PASTEL_BLUE}${BOLD}2.${RESET} 检查更新 ${SPARKLE}${FLOWER}${RESET} "
-        echo -e "${PASTEL_PURPLE}${BOLD}     3.${RESET} ${RED}卸载少女计算器${RESET} ${WING}${HEART}${RESET}   ${PASTEL_BLUE}${BOLD}4.${RESET} 退出 ${CAT}${RESET}\n"
+        echo -e "${PASTEL_PURPLE}${BOLD}     1.${RESET} ${PINK}启动终端版${RESET}       ${HEART}${STAR}   ${PASTEL_BLUE}${BOLD}2.${RESET} 检查更新 ${SPARKLE}${FLOWER}${RESET} "
+        echo -e "${PASTEL_PURPLE}${BOLD}     3.${RESET} ${CYAN}切换皮肤${RESET}           ${MUSIC}${RIBBON}   ${PASTEL_BLUE}${BOLD}4.${RESET} 卸载 ${WING}${HEART}${RESET} "
+        echo -e "${PASTEL_PURPLE}${BOLD}     5.${RESET} ${RED}退出少女计算器${RESET}     ${CAT}${RESET}\n"
         echo -e "${YELLOW}${BOLD}═════════════════════════════════════════════════════${RESET}"
-        # 输入动效
+
         for i in {1..2}; do
             echo -ne "${PINK}${BUBBLE} 请选一个少女编号喵~${SPARKLE} ➤ ${RESET}"
             sleep 0.13
             echo -ne "\r                                         \r"
             sleep 0.11
         done
+
         read -p "$(echo -e ${PINK}${BUBBLE} 请选一个少女编号喵~${SPARKLE} ➤ ${RESET})" opt
 
         case "$opt" in
@@ -93,13 +152,17 @@ main_menu() {
                 break
                 ;;
             3)
+                change_skin
+                ;;
+            4)
                 echo -e "${PASTEL_PURPLE}${BOLD}${WING}${HEART} 真舍不得……少女为你完成卸载啦${RESET}"
                 rm -rf "$HOME/python"
                 sed -i '/少女计算器/d' "$HOME/.bashrc"
+                rm -f "$CONFIG_FILE"
                 echo -e "${YELLOW}${BUBBLE} 卸载好啦，下次再见要记得我哟！${RESET}"
                 exit
                 ;;
-            4)
+            5)
                 echo -e "${PINK}${BOLD}${CAT} 再见喵~ 祝你每天都可爱又心动！${RESET}"
                 exit
                 ;;
@@ -111,6 +174,32 @@ main_menu() {
     done
 }
 
+# 切换皮肤函数
+change_skin() {
+    echo -e "\n${PINK}${BOLD}可选少女皮肤：${RESET}"
+    echo -e "${PASTEL_PURPLE} 1.${RESET} 粉萌系（pink）"
+    echo -e "${PASTEL_PURPLE} 2.${RESET} 魔法夜空（dark）"
+    read -p "$(echo -e ${BUBBLE} 输入数字切换皮肤喵~${RESET}) " skin_opt
+
+    case "$skin_opt" in
+        1)
+            echo "pink" > "$CONFIG_FILE"
+            ;;
+        2)
+            echo "dark" > "$CONFIG_FILE"
+            ;;
+        *)
+            echo -e "${YELLOW}少女没有找到这个皮肤编号哦~${RESET}"
+            sleep 1
+            return
+            ;;
+    esac
+
+    echo -e "${SPARKLE}皮肤切换成功~ 少女重新启动加载魔法！${RESET}"
+    sleep 1
+    exec "$0"
+}
+
 # 检查更新函数
 upgrade() {
     cd "$HOME/python"
@@ -120,4 +209,7 @@ upgrade() {
     exit
 }
 
+# 启动流程
+load_skin
+startup_animation
 main_menu
