@@ -31,7 +31,6 @@ upgrade() {
     echo -e "\n${PINK}正在升级少女计算器，请稍候...${RESET}"
     cd "$HOME/python"
     curl -fsSLO https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py
-    curl -fsSLO https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机图形版.py
     curl -fsSLO https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt
     echo -e "${PINK}升级完成！请重新启动程序。${RESET}"
     exit
@@ -60,7 +59,7 @@ main_menu() {
             sed -i '/少女计算器/d' "$HOME/.bashrc"
             echo -e "${PINK}卸载完成，请重启 Termux！${RESET}"
             exit ;;
-        5) echo "再见喵~" ; exit ;;
+        4) echo "再见喵~" ; exit ;;
         *) echo "无效输入，请重新选择~" ; sleep 1 ; main_menu ;;
     esac
 }
