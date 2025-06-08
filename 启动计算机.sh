@@ -23,6 +23,7 @@ CAT="ฅ•ω•ฅ"
 MUSIC="♪"
 BUBBLE="◦"
 WING="꒰ঌ"
+BUTTERFLY="𓆩✿𓆪"
 
 # 居中输出函数
 center() {
@@ -55,7 +56,9 @@ logo_rainbow() {
         esac
         sleep 0.05
     done
-    center "${YELLOW}${BOLD}${BUNNY}${SPARKLE} 作者：快手：啊泠好困想睡觉 ${SPARKLE}${BUNNY}${RESET}"
+
+    # 美化版作者信息输出 ✨🌸
+    center "${PASTEL_PURPLE}${BOLD}${BUTTERFLY}${SPARKLE}${BUNNY}${SPARKLE}${FLOWER}${RIBBON}${YELLOW} 作者：快手：啊泠好困想睡觉 ${RIBBON}${FLOWER}${SPARKLE}${BUNNY}${SPARKLE}${BUTTERFLY}${RESET}"
     echo -e "${SOFT_PINK}${BOLD}─────────────────────────────────────────────────────${RESET}\n"
 }
 
