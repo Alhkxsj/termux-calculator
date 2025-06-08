@@ -8,7 +8,7 @@ GitHub：https://github.com/Alhkxsj/termux-calculator
 
 功能特色：
 - 少女风 UI 界面（粉色边框 + 蝴蝶结 + 星星 + 花朵装饰）
-- 内置“520”彩蛋，专属情书动画
+- 内置“520”彩蛋
 - 快捷启动菜单，支持更新检查、卸载
 - 支持加减乘除等表达式计算
 - 支持 exit / quit 快速退出，q 返回菜单
