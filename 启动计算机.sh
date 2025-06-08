@@ -1,11 +1,12 @@
+#!/data/data/com.termux/files/usr/bin/bash
 # 少女计算器启动脚本
-# 作者：快手啊泠好困想睡觉
-# 版本：1.1 (Termux优化版)
+# 作者：快手:啊泠好困想睡觉
+# 版本：1.1（Termux优化 + 路径修正）
 
-CONFIG_FILE="$HOME/.少女计算器配置"
-SKIN_NAME="pink"
+WORKDIR="$HOME/python"
+CONFIG_FILE="$WORKDIR/.少女计算器配置"
+LOCAL_VERSION_FILE="$WORKDIR/版本.txt"
 REMOTE_VERSION_URL="https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
-LOCAL_VERSION_FILE="$HOME/版本.txt"
 
 declare -A COLORS
 RESET="\033[0m"
@@ -60,6 +61,7 @@ load_skin() {
     COLORS[RED]="\033[1;31m"
     COLORS[CYAN]="\033[1;36m"
     COLORS[WHITE]="\033[1;37m"
+    COLORS[GREEN]="\033[1;32m"
 }
 
 center() {
@@ -115,7 +117,8 @@ main_menu() {
             1)
                 echo -e "${COLORS[PINK]}启动少女终端版中...${RESET}"
                 sleep 0.8
-                python "$HOME/计算机.py"
+                cd "$WORKDIR"
+                command -v python3 >/dev/null && python3 计算机.py || python 计算机.py
                 ;;
             2)
                 upgrade
@@ -150,7 +153,7 @@ upgrade() {
         read confirm
         if [[ "$confirm" == "y" ]]; then
             echo -e "${COLORS[CYAN]}正在下载最新版本...${RESET}"
-            cd $HOME
+            cd "$WORKDIR"
             curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/启动计算机.sh"
             curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py"
             curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
