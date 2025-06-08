@@ -45,18 +45,16 @@ main_menu() {
     echo "作者：快手：泠好困想睡觉"
     echo
     echo "1. 启动终端版"
-    echo "2. 启动图形版（请提前打开 Termux-X11）"
-    echo "3. 检查更新"
-    echo "4. 卸载少女计算器"
-    echo "5. 退出"
+    echo "2. 检查更新"
+    echo "3. 卸载少女计算器"
+    echo "4. 退出"
     echo -e "${PINK}════════════════════════════════════${RESET}"
     read -p "请输入选项 ➤ " opt
 
     case "$opt" in
         1) python "$HOME/python/计算机.py" ;;
-        2) python "$HOME/python/计算机图形版.py" ;;
-        3) upgrade ;;
-        4)
+        2) upgrade ;;
+        3)
             echo -e "${PINK}正在卸载少女计算器...${RESET}"
             rm -rf "$HOME/python"
             sed -i '/少女计算器/d' "$HOME/.bashrc"
