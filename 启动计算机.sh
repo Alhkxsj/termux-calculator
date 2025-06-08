@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# 少女计算器启动脚本（简洁兼容版）
-# 作者：啊泠好困想睡觉
+# 少女计算器启动脚本
+# 作者：快手啊泠好困想睡觉
 # 版本：1.0
 
 CONFIG_FILE="$HOME/.少女计算器配置"
@@ -9,8 +9,8 @@ SKIN_NAME="pink"
 # 颜色定义
 declare -A COLORS
 
-RESET='\033[0m'
-BOLD='\033[1m'
+RESET="\033[0m"
+BOLD="\033[1m"
 TERM_WIDTH=60
 
 # 兼容性好且清新的符号（有限）
@@ -35,37 +35,41 @@ EGGS=(
 
 # 载入皮肤颜色
 load_skin() {
-    [[ -f "$CONFIG_FILE" ]] && SKIN_NAME=$(cat "$CONFIG_FILE")
+    if [[ -f "$CONFIG_FILE" ]]; then
+        SKIN_NAME=$(cat "$CONFIG_FILE")
+    else
+        SKIN_NAME="pink"
+    fi
     case "$SKIN_NAME" in
         pink)
-            COLORS[PINK]='\033[38;5;213m'
-            COLORS[SOFT_PINK]='\033[38;5;218m'
-            COLORS[BLUE]='\033[38;5;153m'
-            COLORS[PURPLE]='\033[38;5;183m'
-            COLORS[YELLOW]='\033[38;5;229m'
+            COLORS[PINK]="\033[38;5;213m"
+            COLORS[SOFT_PINK]="\033[38;5;218m"
+            COLORS[BLUE]="\033[38;5;153m"
+            COLORS[PURPLE]="\033[38;5;183m"
+            COLORS[YELLOW]="\033[38;5;229m"
             ;;
         dark)
-            COLORS[PINK]='\033[38;5;60m'
-            COLORS[SOFT_PINK]='\033[38;5;105m'
-            COLORS[BLUE]='\033[38;5;111m'
-            COLORS[PURPLE]='\033[38;5;99m'
-            COLORS[YELLOW]='\033[38;5;220m'
+            COLORS[PINK]="\033[38;5;60m"
+            COLORS[SOFT_PINK]="\033[38;5;105m"
+            COLORS[BLUE]="\033[38;5;111m"
+            COLORS[PURPLE]="\033[38;5;99m"
+            COLORS[YELLOW]="\033[38;5;220m"
             ;;
         *)
             echo -e "\033[1;31m未知皮肤，使用默认粉色系~${RESET}"
             SKIN_NAME="pink"
-            load_skin
+            return
             ;;
     esac
-    COLORS[RED]='\033[1;31m'
-    COLORS[CYAN]='\033[1;36m'
-    COLORS[WHITE]='\033[1;37m'
+    COLORS[RED]="\033[1;31m"
+    COLORS[CYAN]="\033[1;36m"
+    COLORS[WHITE]="\033[1;37m"
 }
 
 # 居中输出
 center() {
     local text="$1"
-    local length=$(echo -e "$text" | wc -m)
+    local length=${#text}
     local pad=$(( (TERM_WIDTH - length) / 2 ))
     (( pad < 0 )) && pad=0
     printf "%*s%s%*s\n" $pad "" "$text" $pad ""
@@ -105,7 +109,7 @@ print_logo() {
     echo -e "${COLORS[SOFT_PINK]}║                                          ║${RESET}"
     echo -e "${COLORS[SOFT_PINK]}╚══════════════════════════════════════════╝${RESET}"
     echo
-    center "${COLORS[BLUE]}作者：啊泠好困想睡觉${RESET}"
+    center "${COLORS[BLUE]}作者：快手啊泠好困想睡觉${RESET}"
     echo
 }
 
@@ -120,7 +124,8 @@ main_menu() {
         echo -e "  ${COLORS[CYAN]}4.${RESET} 卸载程序            ${FLOWER}"
         echo -e "  ${COLORS[RED]}5.${RESET} 退出少女计算器      ${BUNNY}"
         echo
-        read -p "$(echo -e ${COLORS[PINK]}请选择功能编号（1-5）：${RESET})" opt
+        echo -ne "${COLORS[PINK]}请选择功能编号（1-5）：${RESET}"
+        read opt
 
         case "$opt" in
             1)
@@ -171,7 +176,8 @@ change_skin() {
     echo -e "${COLORS[CYAN]}选择皮肤：${RESET}"
     echo "  1) 粉色系 (默认)"
     echo "  2) 深色系"
-    read -p "请输入编号：" skin_opt
+    echo -ne "请输入编号："
+    read skin_opt
     case "$skin_opt" in
         1)
             echo "pink" > "$CONFIG_FILE"
