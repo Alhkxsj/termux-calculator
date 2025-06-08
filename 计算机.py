@@ -2,7 +2,7 @@ import time
 import os
 import sys
 
-# 彩色与符号定义（马卡龙+少女风）
+# 🌸 彩色与符号定义（马卡龙+少女风）
 粉 = "\033[95m"
 嫩粉 = "\033[38;5;218m"
 蓝 = "\033[94m"
@@ -25,7 +25,6 @@ def 清屏():
     os.system("clear" if os.name == "posix" else "cls")
 
 def 打印渐变(text, delay=0.04, color=嫩粉, end='\n'):
-    # 渐变动效（少女配色）
     for char in text:
         sys.stdout.write(f"{color}{char}{重置}")
         sys.stdout.flush()
@@ -33,21 +32,20 @@ def 打印渐变(text, delay=0.04, color=嫩粉, end='\n'):
     print(end=end)
 
 def 爱心动画():
-    # 多帧爱心动画
     hearts = [
-        f"{红}     💖        💖        💖     ",
-        f"{红}  💗    💗  {花朵}  💗    💗  ",
-        f"{红}{BOLD}💓  {闪} 刘婧仪 {闪}  💓{重置}",
-        f"{红}  💗    💗  {蝴蝶结}  💗    💗  ",
-        f"{红}     💖        💖        💖    {重置}"
+        f"{红}     💖     💖     💖     ",
+        f"{红}   💗   💗  {花朵}  💗   💗   ",
+        f"{红}{BOLD} 💓  {闪} 刘婧仪最可爱 {闪}  💓 {重置}",
+        f"{红}   💗   💗  {蝴蝶结}  💗   💗   ",
+        f"{红}     💖     💖     💖     {重置}"
     ]
-    for _ in range(2):
+    for _ in range(3):
         清屏()
         for line in hearts:
             print(line)
-        time.sleep(0.5)
+        time.sleep(0.6)
         清屏()
-        time.sleep(0.2)
+        time.sleep(0.25)
 
 def 彩蛋():
     清屏()
@@ -65,25 +63,23 @@ def 彩蛋():
     清屏()
 
 def 打印Logo():
-    # 顶部少女Logo和欢迎语
-    print(f"{嫩粉}{BOLD}╔{'═'*46}╗{重置}")
-    print(f"{嫩粉}{BOLD}║{重置}{' '*46}{嫩粉}{BOLD}║{重置}")
-    print(f"{嫩粉}{BOLD}║{重置}   {粉}{花朵}{星星}{BOLD} 少女计算器终端版 {蝴蝶结}{星星}{花朵}  {嫩粉}{BOLD}║{重置}")
-    print(f"{嫩粉}{BOLD}║{重置} {' '*44}{嫩粉}{BOLD}║{重置}")
-    print(f"{嫩粉}{BOLD}╚{'═'*46}╝{重置}")
+    print(f"{嫩粉}{BOLD}╔{'═'*50}╗{重置}")
+    print(f"{嫩粉}{BOLD}║{重置}{' '*50}{嫩粉}{BOLD}║{重置}")
+    print(f"{嫩粉}{BOLD}║{重置}  {花朵}{星星}{BOLD} 少女计算器终端版 {蝴蝶结}{星星}{花朵}  {嫩粉}{BOLD}║{重置}")
+    print(f"{嫩粉}{BOLD}║{重置}{' '*50}{嫩粉}{BOLD}║{重置}")
+    print(f"{嫩粉}{BOLD}╚{'═'*50}╝{重置}")
     打印渐变(f"{蓝}作者：快手：啊泠好困想睡觉{重置}", 0.01, 蓝)
     打印渐变(f"{青}提示：输入 exit / quit 可退出，520 有彩蛋，q 返回菜单~{重置}\n", 0.01, 青)
 
 def 打印菜单Logo():
-    # 主菜单Logo
-    print(f"{紫}{BOLD}╭{'─'*46}╮{重置}")
-    print(f"{紫}{BOLD}│{重置}{' '*46}{紫}{BOLD}│{重置}")
-    print(f"{紫}{BOLD}│{重置}  {粉}{花朵}{星星}{BOLD} 少女计算器启动菜单 {蝴蝶结}{星星}{花朵}  {紫}{BOLD}│{重置}")
-    print(f"{紫}{BOLD}│{重置}{' '*46}{紫}{BOLD}│{重置}")
-    print(f"{紫}{BOLD}╰{'─'*46}╯{重置}")
+    print(f"{紫}{BOLD}╭{'─'*50}╮{重置}")
+    print(f"{紫}{BOLD}│{重置}{' '*50}{紫}{BOLD}│{重置}")
+    print(f"{紫}{BOLD}│{重置}  {粉}{花朵}{星星} 少女计算器启动菜单 {蝴蝶结}{星星}{花朵}  {紫}{BOLD}│{重置}")
+    print(f"{紫}{BOLD}│{重置}{' '*50}{紫}{BOLD}│{重置}")
+    print(f"{紫}{BOLD}╰{'─'*50}╯{重置}")
 
 def 打印分割线():
-    print(f"{粉}{BOLD}{'═'*48}{重置}")
+    print(f"{粉}{BOLD}{'═'*52}{重置}")
 
 def 打印欢迎界面():
     打印Logo()
@@ -94,14 +90,14 @@ def 终端计算器():
     while True:
         表达式 = input(f"{粉}{BOLD}➤ 请输入算式（支持 + - * / 等）：{重置}")
         if 表达式.strip().lower() in ("exit", "quit"):
-            打印渐变(f"{蓝}再见喵~ 记得想我和刘婧仪哦 {爱心}{猫}{重置}", delay=0.045, color=蓝)
+            打印渐变(f"{蓝}再见喵~ 记得想我和刘婧仪哦 {爱心}{猫}{重置}", 0.045, 蓝)
             time.sleep(0.5)
             break
         elif 表达式.strip() == "520":
             彩蛋()
             打印欢迎界面()
         elif 表达式.strip().lower() == "q":
-            return  # 返回主菜单
+            return
         elif not 表达式.strip():
             打印渐变(f"{黄}喵呜，啥也没输入哦~{重置}", 0.03, 黄)
         else:
@@ -114,7 +110,6 @@ def 终端计算器():
 def 检查更新():
     打印渐变(f"{青}少女正在联网检查更新中...请稍等喵~{重置}", 0.04, 青)
     time.sleep(1)
-    # 直接调用 shell 脚本
     os.system("$HOME/python/启动计算机.sh")
 
 def 卸载少女计算器():
