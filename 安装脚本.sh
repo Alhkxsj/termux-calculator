@@ -7,7 +7,6 @@ mkdir -p ~/python
 
 # 下载主文件
 curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py -o ~/python/计算机.py
-curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机图形版.py -o ~/python/计算机图形版.py
 curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/启动计算机.sh -o ~/python/启动计算机.sh
 curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt -o ~/python/版本.txt
 
