@@ -13,16 +13,9 @@ GitHub：https://github.com/Alhkxsj/termux-calculator
 - 支持加减乘除等表达式计算
 - 支持 exit / quit 快速退出，q 返回菜单
 
-安装方式（建议复制整段命令执行）：
-pkg install git -y
-git clone https://github.com/Alhkxsj/termux-calculator.git
-cd termux-calculator
-bash install.sh
-
-安装完成后，重启 Termux 会自动显示菜单启动项！
-你也可以手动运行：
-python $HOME/python/少女计算器.py
-
+首次安装，输入以下指令
+bash <(curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/安装脚本.sh)
+安装完之后。运行和更新都输入这5个中文:少女计算器
 使用提示：
 - 输入表达式如 1+1、5*8 等，即可计算
 - 输入 520 查看彩蛋惊喜
