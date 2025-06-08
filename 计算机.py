@@ -86,26 +86,23 @@ def 主菜单():
         print(f"╰────────────────────────────────────────────╯{重置}")
         print(f"{蓝}作者：快手：啊泠好困想睡觉{重置}\n")
         print("1. 启动终端版")
-        print("2. 启动图形版（需先打开 Termux-X11）")
-        print("3. 检查更新")
-        print("4. 卸载少女计算器")
-        print("5. 退出")
+        print("2. 检查更新")
+        print("3. 卸载少女计算器")
+        print("4. 退出")
         print(f"{粉}════════════════════════════════════════════{重置}")
         选项 = input("请输入选项 ➤ ")
 
         if 选项 == "1":
             终端计算器()
         elif 选项 == "2":
-            os.system("python $HOME/python/计算机图形版.py")
-        elif 选项 == "3":
             os.system("$HOME/python/启动计算机.sh")  # 用 shell 脚本处理更新
-        elif 选项 == "4":
+        elif 选项 == "3":
             print(f"{红}正在卸载少女计算器...{重置}")
             os.system("rm -rf $HOME/python")
             os.system("sed -i '/少女计算器/d' $HOME/.bashrc")
             print(f"{粉}卸载完成，请重启 Termux！{重置}")
             break
-        elif 选项 == "5":
+        elif 选项 == "4":
             print("再见喵~")
             break
         else:
