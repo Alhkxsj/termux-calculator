@@ -1,4 +1,4 @@
-少女计算器终端版（Termux 专用）
+计算器终端版（Termux 专用）
 作者：啊泠好困想睡觉（快手同名）
 GitHub：https://github.com/Alhkxsj/termux-calculator
 
@@ -7,7 +7,7 @@ GitHub：https://github.com/Alhkxsj/termux-calculator
 快来感受被“可爱”包围的终端体验吧！
 
 功能特色：
-- 少女风 UI 界面（粉色边框 + 蝴蝶结 + 星星 + 花朵装饰）
+- UI 界面（粉色边框 + 蝴蝶结 + 星星 + 花朵装饰）
 - 内置“520”彩蛋
 - 快捷启动菜单，支持更新检查、卸载
 - 支持加减乘除等表达式计算
@@ -21,10 +21,6 @@ bash <(curl -fsSL https://raw.githubusercontent.com/Alhkxsj/termux-calculator/ma
 - 输入 520 查看彩蛋惊喜
 - 输入 q 可返回启动菜单
 - 输入 exit 或 quit 退出程序
-
-更新记录：
-- 2025-06：UI 完全少女风美化，加入皮肤、动画和彩蛋
-- 后续将加入图形版少女计算器（termux-x11），敬请期待
 
 鸣谢与灵感来源：
 感谢所有支持本项目的小伙伴，
