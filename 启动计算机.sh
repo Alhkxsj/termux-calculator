@@ -1,68 +1,21 @@
 #!/data/data/com.termux/files/usr/bin/bash
-# 少女计算器启动脚本
-# 作者：快手:啊泠好困想睡觉
-# 版本：1.1（Termux优化 + 路径修正）
 
 WORKDIR="$HOME/python"
-CONFIG_FILE="$WORKDIR/.少女计算器配置"
 LOCAL_VERSION_FILE="$WORKDIR/版本.txt"
 REMOTE_VERSION_URL="https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
 
-declare -A COLORS
-RESET="\033[0m"
-BOLD="\033[1m"
 TERM_WIDTH=60
 
-# 使用兼容性符号
-HEART="<3"
-FLOWER="*"
-STAR="+"
-SPARKLE="."
-RIBBON="~"
-BUNNY="(^_^)"
-
 EGGS=(
-"今天也要像花一样可爱地盛开~"
-"计算一下今天的心动指数是多少~"
-"用智慧点亮粉色的梦想世界~"
-"欢迎回来小可爱~"
-"少女的魔法，是不容低估的哦~"
-"每一个数字都藏着彩虹的秘密~"
-"风轻轻，数字跳跃，心也跟着跳动~"
-"梦幻不仅是颜色，更是勇气和坚持~"
+"今天也要加油计算鸭~"
+"来计算一下今天的幸运值吧！"
+"数字的世界很精彩~"
+"欢迎回来！"
+"阿泠计算器来啦~"
+"每一个数字都有意义~"
+"开始计算吧！"
+"保持热爱，继续前进！"
 )
-
-load_skin() {
-    if [[ -f "$CONFIG_FILE" ]]; then
-        SKIN_NAME=$(cat "$CONFIG_FILE")
-    else
-        SKIN_NAME="pink"
-    fi
-    case "$SKIN_NAME" in
-        pink)
-            COLORS[PINK]="\033[38;5;213m"
-            COLORS[SOFT_PINK]="\033[38;5;218m"
-            COLORS[BLUE]="\033[38;5;153m"
-            COLORS[PURPLE]="\033[38;5;183m"
-            COLORS[YELLOW]="\033[38;5;229m"
-        ;;
-        dark)
-            COLORS[PINK]="\033[38;5;60m"
-            COLORS[SOFT_PINK]="\033[38;5;105m"
-            COLORS[BLUE]="\033[38;5;111m"
-            COLORS[PURPLE]="\033[38;5;99m"
-            COLORS[YELLOW]="\033[38;5;220m"
-        ;;
-        *)
-            echo -e "\033[1;31m未知皮肤，使用默认粉色系~${RESET}"
-            SKIN_NAME="pink"
-        ;;
-    esac
-    COLORS[RED]="\033[1;31m"
-    COLORS[CYAN]="\033[1;36m"
-    COLORS[WHITE]="\033[1;37m"
-    COLORS[GREEN]="\033[1;32m"
-}
 
 center() {
     local text="$1"
@@ -79,7 +32,7 @@ clear_screen() {
 show_easter_egg() {
     local egg=${EGGS[$RANDOM % ${#EGGS[@]}]}
     for i in {1..3}; do
-        center "${COLORS[PURPLE]}${BOLD}${SPARKLE} ${egg} ${SPARKLE}${RESET}"
+        center " $egg "
         sleep 0.5
         clear_screen
     done
@@ -87,35 +40,34 @@ show_easter_egg() {
 
 startup_animation() {
     clear_screen
-    local msg="${COLORS[PINK]}${BOLD}少女计算器启动中，请稍候...${RESET}"
+    local msg="阿泠计算器启动中..."
     center "$msg"
     sleep 1
 }
 
 print_logo() {
     clear_screen
-    echo -e "${COLORS[SOFT_PINK]}${BOLD}============================================${RESET}"
-    echo -e "${COLORS[SOFT_PINK]}${BOLD}                                          ${RESET}"
-    echo -e "${COLORS[PINK]}${BOLD}        少女计算器 - 梦幻启动菜单         ${RESET}"
-    echo -e "${COLORS[SOFT_PINK]}${BOLD}                                          ${RESET}"
-    echo -e "${COLORS[SOFT_PINK]}${BOLD}============================================${RESET}"
-    echo -e "${COLORS[BLUE]}作者：快手:啊泠好困想睡觉${RESET}"
+    echo "╔════════════════════════════════════════════════════╗"
+    echo "║                                                    ║"
+    echo "║        阿泠计算器 - 主菜单                         ║"
+    echo "║                                                    ║"
+    echo "╚════════════════════════════════════════════════════╝"
+    echo "作者：快手:啊泠好困想睡觉"
     echo
 }
 
 main_menu() {
     while true; do
         print_logo
-        echo -e " ${COLORS[PINK]}1.${RESET} 启动终端版 ${HEART}"
-        echo -e " ${COLORS[BLUE]}2.${RESET} 检查更新 ${STAR}"
-        echo -e " ${COLORS[PURPLE]}3.${RESET} 切换皮肤 ${RIBBON}"
-        echo -e " ${COLORS[RED]}4.${RESET} 退出少女计算器 ${BUNNY}"
+        echo "  1. 启动计算器"
+        echo "  2. 检查更新"
+        echo "  3. 退出"
         echo
-        echo -ne "${COLORS[PINK]}请选择功能编号（1-4）：${RESET}"
+        echo -n "请选择功能编号（1-3）："
         read opt
         case "$opt" in
             1)
-                echo -e "${COLORS[PINK]}启动少女终端版中...${RESET}"
+                echo "启动中..."
                 sleep 0.8
                 cd "$WORKDIR"
                 command -v python3 >/dev/null && python3 计算机.py || python 计算机.py
@@ -124,14 +76,11 @@ main_menu() {
                 upgrade
                 ;;
             3)
-                change_skin
-                ;;
-            4)
-                echo -e "${COLORS[RED]}再见喵，欢迎下次光临！${RESET}"
+                echo "再见！"
                 exit
                 ;;
             *)
-                echo -e "${COLORS[RED]}无效输入，请输入 1-4 之间的数字${RESET}"
+                echo "无效输入，请输入 1-3 之间的数字"
                 sleep 1
                 ;;
         esac
@@ -139,60 +88,45 @@ main_menu() {
 }
 
 upgrade() {
-    echo -e "${COLORS[YELLOW]}少女计算器正在检查 GitHub 更新...${RESET}"
+    echo "检查更新中..."
     sleep 1
-    local remote_version=$(curl -s "$REMOTE_VERSION_URL")
+    local remote_version=$(curl -s "$REMOTE_VERSION_URL" 2>/dev/null)
     local local_version="未知"
     [[ -f "$LOCAL_VERSION_FILE" ]] && local_version=$(cat "$LOCAL_VERSION_FILE")
 
-    echo -e "${COLORS[WHITE]}当前版本：$local_version${RESET}"
-    echo -e "${COLORS[WHITE]}最新版本：$remote_version${RESET}"
+    if [[ -z "$remote_version" ]]; then
+        echo "无法连接到 GitHub，请检查网络"
+        sleep 2
+        return
+    fi
+
+    echo "当前版本：$local_version"
+    echo "最新版本：$remote_version"
 
     if [[ "$remote_version" != "$local_version" ]]; then
-        echo -ne "${COLORS[PINK]}发现新版本，是否更新？(y/n)：${RESET}"
+        echo -n "发现新版本，是否更新？(y/n)："
         read confirm
         if [[ "$confirm" == "y" ]]; then
-            echo -e "${COLORS[CYAN]}正在下载最新版本...${RESET}"
+            echo "下载中..."
             cd "$WORKDIR"
-            curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/启动计算机.sh"
-            curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py"
-            curl -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt"
-            echo -e "${COLORS[SOFT_PINK]}更新完成，请重新运行少女计算器~${RESET}"
-            exit
+            if curl -f -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/启动计算机.sh" 2>/dev/null && \
+               curl -f -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/计算机.py" 2>/dev/null && \
+               curl -f -O -L "https://raw.githubusercontent.com/Alhkxsj/termux-calculator/main/版本.txt" 2>/dev/null; then
+                echo "更新完成，请重新运行"
+                exit
+            else
+                echo "下载失败，请稍后再试"
+            fi
         else
-            echo -e "${COLORS[YELLOW]}已取消更新${RESET}"
+            echo "已取消更新"
         fi
     else
-        echo -e "${COLORS[GREEN]}当前已是最新版本哦~${RESET}"
+        echo "当前已是最新版本"
     fi
     sleep 1
 }
 
-change_skin() {
-    echo -e "${COLORS[CYAN]}选择皮肤：${RESET}"
-    echo " 1) 粉色系 (默认)"
-    echo " 2) 深色系"
-    echo -ne "请输入编号："
-    read skin_opt
-    case "$skin_opt" in
-        1)
-            echo "pink" > "$CONFIG_FILE"
-            echo -e "${COLORS[PINK]}已切换至粉色系${RESET}"
-            ;;
-        2)
-            echo "dark" > "$CONFIG_FILE"
-            echo -e "${COLORS[CYAN]}已切换至深色系${RESET}"
-            ;;
-        *)
-            echo -e "${COLORS[RED]}无效选项，保持当前皮肤${RESET}"
-            ;;
-    esac
-    sleep 1
-    load_skin
-}
-
 main() {
-    load_skin
     startup_animation
     show_easter_egg
     main_menu
